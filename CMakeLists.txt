@@ -1,9 +1,10 @@
-project(PARTICLE_FILTER)
+project(ParticleFilter)
 
 cmake_minimum_required (VERSION 3.5)
 
 add_definitions(-std=c++11)
 
+set(CMAKE_BUILD_TYPE Debug)
 set(CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 
@@ -21,8 +22,12 @@ link_directories(/usr/local/Cellar/libuv/1*/lib)
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin") 
 
 
-add_executable(particle_filter ${sources})
+add_executable(ParticleFilter ${sources})
 
-
-target_link_libraries(particle_filter z ssl uv uWS)
-
+# Visual Studio and MSVC Support for compiling and running on Windows
+if(MSVC)
+set(CMAKE_TOOLCHAIN_FILE "c:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake")
+add_definitions(-DWIN_UWS_LIB)
+else(MSVC)
+target_link_libraries(ParticleFilter z ssl uv uWS)
+endif(MSVC)
