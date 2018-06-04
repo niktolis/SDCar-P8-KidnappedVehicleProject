@@ -10,6 +10,9 @@
 #define PARTICLE_FILTER_H_
 
 #include "helper_functions.h"
+#include <random>
+
+using namespace std;
 
 struct Particle {
 
@@ -30,7 +33,8 @@ class ParticleFilter {
 	// Number of particles to draw
 	int num_particles; 
 	
-	
+	// random engine to be used across method calls
+  default_random_engine gen;
 	
 	// Flag, if filter is initialized
 	bool is_initialized;
